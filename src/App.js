@@ -1,23 +1,23 @@
 import logo from './logo.svg';
+import 'antd/dist/antd.css';
 import './App.css';
+import { PageContex, Reducer } from './components/Stock/service';
+import { StockList } from './components/Stock/List/StockList';
+import { useReducer, useState } from 'react';
+import { StockAdd } from './components/Stock/Add/StockAdd';
 
 function App() {
+  const initialState = {
+    data: []
+  }
+  const [state, dispatch] = useReducer(Reducer, initialState);
+  const [formdata, setformdata] = useState({});
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <PageContex.Provider value={{state,dispatch,formdata,setformdata}}>
+        <StockAdd/>
+        <StockList/>
+      </PageContex.Provider>
     </div>
   );
 }
